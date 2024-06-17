@@ -28,11 +28,11 @@
 				</tr>
 				<tr>
 					<td>详细说明</td>
-					<td>{{ user.description }}</td>
+					<td>{{ user.content }}</td>
 				</tr>
 				<tr>
-					<td>电话</td>
-					<td>{{ user.phone }}</td>
+					<td>生日</td>
+					<td>{{ user.date }}</td>
 				</tr>
 				<tr>
 					<td>邮箱</td>
@@ -58,7 +58,7 @@ const fetchUserDetail = async (id) => {
 		if (response.data.code === 200) {
 			user.value = response.data.data;
 		} else {
-			console.error("用户未找到");
+			console.error("id:" + id + "用户未找到");
 		}
 	} catch (error) {
 		console.error("获取用户详情时出错", error);

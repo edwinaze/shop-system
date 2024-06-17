@@ -1,0 +1,22 @@
+{
+	"list|5": [
+		{
+			"id|+1": 1,
+			"name": "@cname",
+			"avatar": "@image('200x200', '#50B347', '#FFF', 'avatar')",
+			"level|1": [
+				"一级客户",
+				"二级客户",
+				"三级客户",
+				"四级客户",
+				"五级客户"
+			],
+			"age|1-100": 1,
+			"sex|1": ["男", "女"],
+			"email": "@EMAIL",
+			"address": "@county(true)",
+			"date": "@date(yyyy-MM-dd)",
+			"content": "@cparagraph(1, 3)"
+		}
+	]
+}

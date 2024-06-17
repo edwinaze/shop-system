@@ -35,6 +35,7 @@
 
 <script setup>
 import { ref, watch } from "vue";
+import axios from "axios";
 
 const totalPrice = ref(0);
 const isCheckAll = ref(false);
@@ -47,6 +48,11 @@ watch(
 	},
 	{ deep: true }
 );
+// TODO
+// 所有获取数据均用axio实现 √
+// 套用零件管理系统登录页面或者另找一个
+// 增加面包屑导航
+// 用户详情页美化
 
 const updatePrice = () => {
 	totalPrice.value = 0;
