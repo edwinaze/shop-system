@@ -1,7 +1,27 @@
-# Vue 3 + Vite
+# Tech
 
-This template should help get you started developing with Vue 3 in Vite. The template uses Vue 3 `<script setup>` SFCs, check out the [script setup docs](https://v3.vuejs.org/api/sfc-script-setup.html#sfc-script-setup) to learn more.
+This project uses Bun.js as the rendering engine, and the technology stack includes Vue, Mock.js, and bootstrap.css.
 
-## Recommended IDE Setup
+# Usage
 
-- [VS Code](https://code.visualstudio.com/) + [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar)
+To run this project, make sure you have Node.js or Bun.js runtime environment installed on your machine.
+
+Run the following command:
+
+```bash
+bun install
+bun run dev
+```
+
+If you are using Node.js, the following commands are recommended:
+
+```bash
+npm install
+npm run dev
+```
+
+This will install the necessary dependencies and start the development server.
+
+# Preview
+
+![Preview](preview.jpg)
