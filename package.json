@@ -9,8 +9,13 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@primevue/themes": "4.0.0-rc.2",
     "axios": "^1.7.2",
     "mockjs": "^1.1.0",
+    "primeflex": "^3.3.1",
+    "primeicons": "^7.0.0",
+    "primevue": "4.0.0-rc.2",
+    "sass": "^1.77.6",
     "vue": "^3.2.37",
     "vue-router": "^4.0.13"
   },
