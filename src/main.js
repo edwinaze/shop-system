@@ -4,7 +4,7 @@ import App from './App.vue'
 import './assets/styles.scss'
 
 import './mock/mockServer'
-import router from './router'
+import router from './router/index'
 
 import PrimVue from 'primevue/config'
 import Aura from '@primevue/themes/aura'
