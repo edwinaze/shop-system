@@ -17,9 +17,7 @@
 				<td>{{ item.name }}</td>
 				<td>{{ item.level }}</td>
 				<td>
-					<router-link :to="'/home/users/' + item.id"
-						>详情</router-link
-					>
+					<router-link :to="'/users/' + item.id">详情</router-link>
 				</td>
 			</tr>
 		</tbody>

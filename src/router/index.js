@@ -1,4 +1,5 @@
 import { RouterView, createRouter, createWebHashHistory } from 'vue-router';
+import { useAuthStore } from '../stores/auth';
 
 
 const router = createRouter({
@@ -13,34 +14,33 @@ const router = createRouter({
         {
           path: 'home',
           component: () => import('../components/Home.vue'),
+        },
+        {
+          path: 'users',
+          component: () => import('../components/user/User.vue'),
           children: [
             {
-              path: 'users',
-              component: () => import('../components/user/User.vue'),
-              children: [
-                {
-                  path: '',
-                  component: () => import('../components/subcomponents/MyUsers.vue')
-                },
-                {
-                  path: ':id',
-                  name: 'details',
-                  component: () => import('../components/user/MyUserDetail.vue'), props: true
-                }
-              ]
+              path: '',
+              component: () => import('../components/subcomponents/MyUsers.vue')
             },
-
             {
-              path: 'goods',
-              component: () => import('../components/subcomponents/MyGoods.vue')
-            },
+              path: ':id',
+              name: 'details',
+              component: () => import('../components/user/MyUserDetail.vue'), props: true
+            }
           ]
-        },
 
+        },
+        {
+          path: 'goods',
+          component: () => import('../components/subcomponents/MyGoods.vue')
+        },
       ]
-    }
+    },
+
   ]
 })
+
 
 export default router
 
@@ -49,12 +49,10 @@ router.beforeEach((to, from, next) => {
   if (to.path === '/login')
     return next()
 
-  const isLogin = localStorage.getItem('isLogin')
+  const isLogin = useAuthStore().isLogin;
   console.log(isLogin)
   if (!isLogin) {
-
     return next('/login')
   }
-
   next()
 })

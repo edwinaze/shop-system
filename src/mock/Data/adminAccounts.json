@@ -3,12 +3,14 @@
 		"id": 1,
 		"username": "123",
 		"password": "123",
-		"token": "abc123"
+		"nickname": "123",
+		"role": "admin"
 	},
 	{
 		"id": 2,
 		"username": "admin",
 		"password": "admin",
-		"token": "def456"
+		"nickname": "admin",
+		"role": "admin"
 	}
 ]

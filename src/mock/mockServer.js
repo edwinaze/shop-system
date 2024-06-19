@@ -101,8 +101,8 @@ Mock.mock('/api/login', 'post', (options) => {
       message: '登录成功',
       data: {
         userId: user.id,
-        userName: user.username,
-        token: user.token
+        userNickname: user.nickname,
+        userRole: user.role,
       }
     };
   } else {

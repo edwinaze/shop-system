@@ -16,9 +16,10 @@
 					<div>
 						<div class="mb-5 field p-fluid flex flex-column">
 							<label for="username1" class="block text-600 text-base font-medium mb-2">账号</label>
-							<InputText id="username1" type="text" placeholder="请输入账号" class="w-full md:w-30rem"
-								variant="filled" style="padding: 1rem" v-model="username" :invalid="isLoginWrong" />
-							<small v-if="isLoginWrong" style="color:#f87171">账号密码错误</small>
+							<InputText autofocus id="username1" type="text" placeholder="请输入账号"
+								class="w-full md:w-30rem" variant="filled" style="padding: 1rem" v-model="username"
+								:invalid="isLoginWrong" />
+							<Message v-if="isLoginWrong" severity="error" life="3000">账号密码错误</Message>
 						</div>
 						<div class="mb-5 field p-fluid flex flex-column">
 							<label for="password1" class="block text-600 font-medium text-base mb-2">密码</label>
@@ -26,7 +27,7 @@
 								class="w-full md:w-30rem" inputClass="w-full" variant="filled" :feedback="false"
 								:inputStyle="{ padding: '1rem' }" :invalid="isLoginWrong">
 							</Password>
-							<small v-if="isLoginWrong" style="color:#f87171">账号密码错误</small>
+							<Message v-if="isLoginWrong" severity="error" life="3000">账号密码错误</Message>
 						</div>
 						<Button label="登录" class="w-full p-3 text-xl" @click="onLogin"></Button>
 					</div>
@@ -41,22 +42,16 @@ import { ref, watch } from "vue";
 import { useRouter } from "vue-router";
 import "../assets/aura-light-pink/theme.css";
 import axios from "axios";
+import Message from "primevue/message";
+import { useAuthStore } from "../stores/auth";
 
 const router = useRouter();
 const username = ref("");
 const password = ref("");
 
-const message = ref("");
-const isLoginCorrect = ref(false);
 const isLoginWrong = ref(false);
+const { setAuthStore, removeAuthStore } = useAuthStore();
 
-watch(message, () => {
-	if (message.value === "登录成功") {
-		isLoginCorrect.value = true;
-	} else {
-		isLoginCorrect.value = false;
-	}
-});
 
 async function onLogin() {
 	try {
@@ -65,16 +60,18 @@ async function onLogin() {
 			password: password.value,
 		});
 		if (response.data.code === 200) {
-			message.value = "登录成功";
+			console.log("login success")
+			console.log(response.data.data)
+			const nickname = response.data.data.userNickname;
+			const role = response.data.data.userRole;
+			setAuthStore(username.value, password.value, nickname, role);
 			router.push("/home");
-			localStorage.setItem("isLogin", true);
 		} else {
-			message.value = response.data.message;
 			isLoginWrong.value = true;
-			localStorage.removeItem("isLogin");
+			removeAuthStore();
 		}
 	} catch (error) {
-		message.value = "未知错误，请联系管理员";
+		console.error(error);
 	}
 }
 </script>
