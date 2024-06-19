@@ -1,15 +1,57 @@
 <script setup>
-import { ref, computed, onMounted, onBeforeUnmount } from 'vue';
+import { ref, computed, onMounted, onBeforeUnmount, watchEffect, watch } from 'vue';
 import { useLayout } from './layout';
 import { useRouter } from 'vue-router';
 import { useAuthStore } from '../stores/auth';
 import { useConfirm } from 'primevue/useconfirm';
+import { useUrlStore } from '../stores/url';
 
 const confirm = useConfirm();
 
 
 const { layoutConfig, onMenuToggle } = useLayout();
 const { removeAuthStore, nickname } = useAuthStore();
+const urlStore = useUrlStore();
+
+const home = ref({
+    icon: 'pi pi-home'
+});
+
+const items = ref([]);
+
+urlStore.$subscribe(() => {
+    const routeList = urlStore.getRouteList(); // 是 Proxy 对象
+    const routeName = urlStore.getRouteNameList();
+    console.log("NavBar-routeList: ", routeList, "NavBar-routeName: ", routeName);
+
+    let breadcrumb = [];
+    for (let i = 0; i < routeList.length; i++) {
+        breadcrumb.push({
+            label: routeName[i],
+            route: routeList[i]
+        });
+    }
+    console.log(breadcrumb);
+    items.value = breadcrumb;
+});
+
+
+
+
+
+// watch(routeList, () => {
+//     items = () => {
+//         let breadcrumb = [];
+//         for (let i = 0; i < routeList.value.length; i++) {
+//             breadcrumb.push({
+//                 label: routeName.value[i],
+//                 to: routeList.value[i]
+//             });
+//         }
+//         console.log(breadcrumb);
+//         return breadcrumb;
+//     }
+// });
 
 const outsideClickListener = ref(null);
 const topbarMenuActive = ref(false);
@@ -108,6 +150,7 @@ const logoutConfirm = () => {
 };
 
 
+
 </script>
 
 <template>
@@ -120,6 +163,21 @@ const logoutConfirm = () => {
         <!-- 缩进按钮 -->
         <button class="p-link layout-menu-button layout-topbar-button" @click="onMenuToggle()"><i
                 class="pi pi-bars"></i></button>
+
+        <Breadcrumb :home="home" :model="items">
+            <template #item="{ item, props }">
+                <router-link v-if="item.route" v-slot="{ href, navigate }" :to="item.route" custom>
+                    <a :href="href" v-bind="props.action" @click="navigate">
+                        <span :class="[item.icon, 'text-color']" />
+                        <span class="text-primary font-semibold">{{ item.label }}</span>
+                    </a>
+                </router-link>
+                <a v-else :href="item.url" :target="item.target" v-bind="props.action">
+                    <span class="text-surface-700 dark:text-surface-0">{{ item.label }}</span>
+                </a>
+            </template>
+        </Breadcrumb>
+
         <!-- 右侧用户栏 -->
         <div class="layout-topbar-menu">
             <button class="p-link layout-topbar-button" @click="toggleMenu" aria-haspopup="true"

@@ -2,10 +2,12 @@
 import { ref, onBeforeMount, watch } from 'vue';
 import { useLayout } from './layout';
 import { useRoute } from 'vue-router';
+import { useUrlStore } from '../stores/url';
 
 const route = useRoute();
 
 const { layoutConfig, layoutState, setActiveMenuItem, onMenuToggle } = useLayout();
+const { pushRoute, clearRoute, getRouteList, getRouteNameList } = useUrlStore();
 
 const props = defineProps({
     item: {
@@ -61,6 +63,13 @@ const itemClick = (event, item) => {
         item.command({ originalEvent: event, item: item });
     }
 
+    console.log("开始跳转并加入store:")
+    clearRoute();
+    pushRoute(item.to, item.label);
+    console.log("跳转完成，当前路由为:" + route.path + " 当前标签为:" + item.label);
+    console.log("当前路由列表为:" + getRouteList() + " 当前标签列表为:" + getRouteNameList());
+
+
     const foundItemKey = item.items ? (isActiveMenu.value ? props.parentItemKey : itemKey) : itemKey.value;
 
     setActiveMenuItem(foundItemKey);
@@ -70,6 +79,8 @@ const checkActiveRoute = (item) => {
     console.log("nowPath:" + route.path + " item.to:" + item.to + " result:" + route.path.startsWith(item.to));
     return route.path.startsWith(item.to);
 };
+
+
 
 
 </script>

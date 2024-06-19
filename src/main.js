@@ -16,6 +16,7 @@ import Menu from 'primevue/menu';
 import Dialog from 'primevue/dialog';
 import ConfirmDialog from 'primevue/confirmdialog';
 import ConfirmationService from 'primevue/confirmationservice';
+import Breadcrumb from 'primevue/breadcrumb';
 
 
 import { createPinia } from 'pinia';
@@ -47,6 +48,7 @@ app.component('Password', Password);
 app.component('Menu', Menu);
 app.component('Dialog', Dialog);
 app.component('ConfirmDialog', ConfirmDialog);
+app.component('Breadcrumb', Breadcrumb);
 
 
 app.mount('#app');
