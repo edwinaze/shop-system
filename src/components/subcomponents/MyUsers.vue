@@ -4,7 +4,7 @@
 		<div class="col-12">
 			<div class="card">
 				<h5 class="text-center">用户管理</h5>
-				<DataTable :value="userlist" :rows="5" :paginator="true" responsiveLayout="scroll">
+				<DataTable :value="userlist" :rows="5" paginator responsiveLayout="scroll">
 					<Column field="id" style="width: 15%" header="序号" :sortable="true"></Column>
 					<Column field="name" header="姓名" :sortable="true" style="width: 35%"></Column>
 					<Column field="level" header="等级" :sortable="true" style="width: 35%"></Column>
@@ -29,6 +29,8 @@ import { useUrlStore } from "../../stores/url";
 
 const router = useRouter();
 const { pushRoute } = useUrlStore();
+const inputGroupValue = ref(false);
+
 
 
 const routeToDetails = (id, name) => {

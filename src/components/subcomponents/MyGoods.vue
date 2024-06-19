@@ -4,15 +4,18 @@
 		<!-- 用户列表 -->
 		<div class="col-12">
 			<div class="card">
-				<!-- <Checkbox id="rememberme1" :binary="true" v-model="checkeds" class="mr-2"></Checkbox> -->
 				<h5 class="text-center">商品管理</h5>
-				<DataTable :value="list" v-model:selection="selectedProduct" dataKey="id" :rows="5" :paginator="true"
+				<DataTable :value="list" v-model:selection="selectedProduct" dataKey="id" :rows="5" paginator
 					responsiveLayout="scroll">
 					<Column selectionMode="multiple" headerStyle="width: 3rem"></Column>
-
-					<!-- <Column style="width: 15%" header="#" :sortable="true">
-						<template #body="slotProps">
-							<Checkbox v-model="checked" binary variant="filled" />
+					<!-- <Column style="width: 15%">
+						<template #header>
+							<input type="checkbox" :value="checkAll" @click="checkAll = !checkAll"
+								:class="checkAll ? 'checkbox-checked' : ''" />
+						</template>
+<template #body="slotProps">
+							<input type="checkbox" :value="slotProps.data.checkState"
+								:class="slotProps.data.checkState ? 'checkbox-checked' : ''" />
 						</template>
 </Column> -->
 					<Column field="id" header="序号" :sortable="true"></Column>
@@ -22,10 +25,10 @@
 							￥{{ slotProps.data.goods_price }}
 						</template>
 					</Column>
-					<Column header="数量">
+					<Column header="数量" class="mw-150">
 						<template #body="slotProps">
 							<Button icon="pi pi-minus" size="small" rounded @click="changeAmount(slotProps.data, -1)" />
-							<InputNumber v-model="slotProps.data.amount" class="w-5" />
+							<InputNumber v-model="slotProps.data.amount" class="w-5" style="width:50px" />
 							<Button icon="pi pi-plus" size="small" rounded @click="changeAmount(slotProps.data, 1)" />
 						</template>
 					</Column>
@@ -50,14 +53,6 @@
 					</Column>
 					<ColumnGroup type="footer">
 						<Row>
-							<!-- <Column footerStyle="text-align:left">
-								<template #footer>
-									<button type="p-button" class="btn btn-outline-primary btn-sm"
-										@click="updateStatus('all')">
-										全选
-									</button>
-								</template>
-							</Column> -->
 							<Column footer="总计: ￥" :colspan="4" footerStyle="text-align:right" />
 							<Column :footer="totalPrice" :colspan="3" footerStyle="text-align:left"
 								style="color: var(--p-primary-color)" />
@@ -71,15 +66,16 @@
 </template>
 
 <script setup>
-import { ref, onMounted } from "vue";
+import { ref, onMounted, watch } from "vue";
 import request from "../../axios/request";
 import ColumnGroup from "primevue/columngroup";
 const list = ref([]);
-const selectedProduct = ref();
 
 const totalPrice = ref(0);
 
+// const checkAll = ref(false);
 
+const selectedProduct = ref();
 
 
 onMounted(() => {
@@ -94,6 +90,11 @@ onMounted(() => {
 			console.log(error);
 		});
 });
+
+// watch(checkAll, () => {
+// 	updateStatus();
+// });
+
 
 const getTotalPrice = () => {
 	totalPrice.value = 0;
@@ -127,30 +128,39 @@ const onInputConfig = (row) => {
 	row.tags.push(val);
 };
 
-
-
-// const updateStatus = (status) => {
-// 	if (status === "all") {
-// 		list.value.forEach((item) => {
-// 			item.checkState = true;
-// 		});
-// 		return list.value;
-// 	}
-// 	if (status === "active") {
-// 		return (list.value = list.value.filter((item) => !item.checkState));
-// 	}
-// 	if (status === "completed") {
-// 		return (list.value = []);
-// 	}
+// const updateStatus = () => {
+// 	console.log("updateStatus:" + checkAll.value);
+// 	list.value.forEach((item) => {
+// 		item.checkState = checkAll.value;
+// 	});
+// 	console.log(list.value);
 // };
+
+
 </script>
 
-<style scoped>
+<style>
 .p-inputnumber-input {
-	width: 25px !important;
+	width: 50px;
 }
 
+.p-checkbox-checked .p-checkbox-box {
+	border-color: #ec4899 !important;
+	background: #ec4899 !important;
+}
 
+.p-checkbox .p-checkbox-box .p-checkbox-icon {
+	transition-duration: 0.2s !important;
+	color: #ffffff !important;
+	font-size: 0.875rem !important;
+}
+
+.p-datatable-paginator-bottom {
+	border-color: #e2e8f0 !important;
+}
+</style>
+
+<style scoped>
 th {
 	text-align: center;
 }

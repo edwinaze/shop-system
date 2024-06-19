@@ -23,6 +23,11 @@ import ColumnGroup from 'primevue/columngroup';
 import Checkbox from 'primevue/checkbox';
 import Breadcrumb from 'primevue/breadcrumb';
 import Row from 'primevue/row';
+import BadgeDirective from 'primevue/badgedirective';
+import Ripple from 'primevue/ripple';
+import StyleClass from 'primevue/styleclass';
+import Fieldset from 'primevue/fieldset';
+import Image from 'primevue/image';
 
 
 import { createPinia } from 'pinia';
@@ -44,9 +49,14 @@ app.use(PrimVue, {
         }
     }
 });
+
 app.use(ConfirmationService);
 
 app.directive('tooltip', Tooltip);
+app.directive('badge', BadgeDirective);
+app.directive('ripple', Ripple);
+app.directive('styleclass', StyleClass);
+
 
 app.component('InputText', InputText);
 app.component('InputNumber', InputNumber);
@@ -61,5 +71,7 @@ app.component('Column', Column);
 app.component('ColumnGroup', ColumnGroup);
 app.component('Checkbox', Checkbox);
 app.component('Row', Row);
+app.component('Fieldset', Fieldset);
+app.component('Image', Image);
 
 app.mount('#app');

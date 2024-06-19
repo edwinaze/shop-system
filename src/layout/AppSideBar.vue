@@ -4,16 +4,16 @@ import AppSidebarItem from './AppSidebarItem.vue';
 
 const model = ref([
     {
-        label: 'Home',
-        items: [{ label: 'Dashboard', icon: 'pi pi-fw pi-home', to: '/home' }]
+
+        items: [{ label: '首页', icon: 'pi pi-fw pi-home', to: '/home' }]
     },
     {
-        label: 'ClientManage',
-        items: [{ label: 'ClientList', icon: 'pi pi-fw pi-user', to: '/users' }]
+
+        items: [{ label: '客户管理', icon: 'pi pi-fw pi-user', to: '/users' }]
     },
     {
-        label: 'GoodsManage',
-        items: [{ label: 'GoodsList', icon: 'pi pi-fw pi-shopping-cart', to: '/goods' }]
+
+        items: [{ label: '商品管理', icon: 'pi pi-fw pi-shopping-cart', to: '/goods' }]
     }
 ])
 

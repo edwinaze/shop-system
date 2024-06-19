@@ -4,14 +4,12 @@ import { useLayout } from './layout';
 import { useRouter, useRoute } from 'vue-router';
 import { useAuthStore } from '../stores/auth';
 import { useConfirm } from 'primevue/useconfirm';
-import { useUrlStore } from '../stores/url';
 
 const confirm = useConfirm();
 
 
 const { layoutConfig, onMenuToggle } = useLayout();
 const { removeAuthStore, nickname } = useAuthStore();
-const urlStore = useUrlStore();
 
 const homes = ref({
     icon: 'pi pi-bars'
