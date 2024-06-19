@@ -4,26 +4,18 @@
 		<div class="col-12">
 			<div class="card">
 				<h5 class="text-center">用户管理</h5>
-				<table class="table table-striped table-hover table-bordered">
-					<thead>
-						<tr>
-							<th>序号</th>
-							<th>姓名</th>
-							<th>等级</th>
-							<th>操作</th>
-						</tr>
-					</thead>
-					<tbody>
-						<tr v-for="item in userlist" :key="item.id">
-							<td>{{ item.id }}</td>
-							<td>{{ item.name }}</td>
-							<td>{{ item.level }}</td>
-							<td>
-								<router-link :to="'/users/' + item.id">详情</router-link>
-							</td>
-						</tr>
-					</tbody>
-				</table>
+				<DataTable :value="userlist" :rows="5" :paginator="true" responsiveLayout="scroll">
+					<Column field="id" style="width: 15%" header="序号" :sortable="true"></Column>
+					<Column field="name" header="姓名" :sortable="true" style="width: 35%"></Column>
+					<Column field="level" header="等级" :sortable="true" style="width: 35%"></Column>
+					<Column style="width: 15%">
+						<template #header> 操作 </template>
+						<template #body="slotProps">
+							<Button icon="pi pi-search" type="button" class="p-button-text"
+								@click="routeToDetails(slotProps.data.id, slotProps.data.name)"></Button>
+						</template>
+					</Column>
+				</DataTable>
 			</div>
 		</div>
 	</div>
@@ -32,7 +24,17 @@
 <script setup>
 import { ref, onMounted } from "vue";
 import request from "../../axios/request";
+import { useRouter } from "vue-router";
+import { useUrlStore } from "../../stores/url";
 
+const router = useRouter();
+const { pushRoute } = useUrlStore();
+
+
+const routeToDetails = (id, name) => {
+	pushRoute("/users/" + id, name + " 用户详情");
+	router.push({ name: "details", params: { id: id } });
+};
 
 
 

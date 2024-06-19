@@ -1,7 +1,7 @@
 <script setup>
 import { ref, computed, onMounted, onBeforeUnmount, watchEffect, watch } from 'vue';
 import { useLayout } from './layout';
-import { useRouter } from 'vue-router';
+import { useRouter, useRoute } from 'vue-router';
 import { useAuthStore } from '../stores/auth';
 import { useConfirm } from 'primevue/useconfirm';
 import { useUrlStore } from '../stores/url';
@@ -13,29 +13,31 @@ const { layoutConfig, onMenuToggle } = useLayout();
 const { removeAuthStore, nickname } = useAuthStore();
 const urlStore = useUrlStore();
 
-const home = ref({
-    icon: 'pi pi-home'
+const homes = ref({
+    icon: 'pi pi-bars'
 });
 
 const items = ref([]);
 
-urlStore.$subscribe(() => {
-    const routeList = urlStore.getRouteList(); // 是 Proxy 对象
-    const routeName = urlStore.getRouteNameList();
-    console.log("NavBar-routeList: ", routeList, "NavBar-routeName: ", routeName);
-
-    let breadcrumb = [];
-    for (let i = 0; i < routeList.length; i++) {
-        breadcrumb.push({
-            label: routeName[i],
-            route: routeList[i]
-        });
-    }
-    console.log(breadcrumb);
-    items.value = breadcrumb;
-});
 
 
+
+
+// urlStore.$subscribe(() => {
+//     const routeList = urlStore.getRouteList(); // 是 Proxy 对象
+//     const routeName = urlStore.getRouteNameList();
+//     console.log("NavBar-routeList: ", routeList, "NavBar-routeName: ", routeName);
+
+//     let breadcrumb = [];
+//     for (let i = 0; i < routeList.length; i++) {
+//         breadcrumb.push({
+//             label: routeName[i],
+//             route: routeList[i]
+//         });
+//     }
+//     console.log(breadcrumb);
+//     items.value = breadcrumb;
+// });
 
 
 
@@ -56,6 +58,7 @@ urlStore.$subscribe(() => {
 const outsideClickListener = ref(null);
 const topbarMenuActive = ref(false);
 const router = useRouter();
+const route = useRoute();
 
 const menu = ref();
 const menuItems = ref([
@@ -77,6 +80,24 @@ onMounted(() => {
 onBeforeUnmount(() => {
     unbindOutsideClickListener();
 });
+
+watch(route, () => {
+
+    const routeMatched = route.matched;
+    console.log("NavBar-routeMatched: ", routeMatched);
+    let breadcrumb = [];
+    for (let i = 0; i < routeMatched.length; i++) {
+        if (routeMatched[i].meta.title) {
+            breadcrumb.push({
+                label: routeMatched[i].meta.title,
+                route: routeMatched[i].path
+            });
+        }
+    }
+    console.log("NavBar-breadcrumb: ", breadcrumb);
+    items.value = breadcrumb;
+});
+
 
 const logoUrl = computed(() => {
     return `/layout/images/${layoutConfig.darkTheme.value ? 'logo-white' : 'logo-dark'}.svg`;
@@ -150,6 +171,10 @@ const logoutConfirm = () => {
 };
 
 
+const test = () => {
+    console.log(route.matched);
+}
+
 
 </script>
 
@@ -164,7 +189,10 @@ const logoutConfirm = () => {
         <button class="p-link layout-menu-button layout-topbar-button" @click="onMenuToggle()"><i
                 class="pi pi-bars"></i></button>
 
-        <Breadcrumb :home="home" :model="items">
+        <button class="p-link layout-menu-button layout-topbar-button" @click="router.push('/home')"><i
+                class="pi pi-home"></i></button>
+
+        <Breadcrumb :home="homes" :model="items">
             <template #item="{ item, props }">
                 <router-link v-if="item.route" v-slot="{ href, navigate }" :to="item.route" custom>
                     <a :href="href" v-bind="props.action" @click="navigate">

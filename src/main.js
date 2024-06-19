@@ -14,8 +14,10 @@ import Password from 'primevue/password';
 import Tooltip from 'primevue/tooltip';
 import Menu from 'primevue/menu';
 import Dialog from 'primevue/dialog';
+import DataTable from 'primevue/datatable';
 import ConfirmDialog from 'primevue/confirmdialog';
 import ConfirmationService from 'primevue/confirmationservice';
+import Column from 'primevue/column';
 import Breadcrumb from 'primevue/breadcrumb';
 
 
@@ -49,6 +51,8 @@ app.component('Menu', Menu);
 app.component('Dialog', Dialog);
 app.component('ConfirmDialog', ConfirmDialog);
 app.component('Breadcrumb', Breadcrumb);
+app.component('DataTable', DataTable);
+app.component('Column', Column);
 
 
 app.mount('#app');

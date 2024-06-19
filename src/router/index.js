@@ -1,11 +1,16 @@
-import { RouterView, createRouter, createWebHashHistory } from 'vue-router';
+import { useRoute, createRouter, createWebHashHistory } from 'vue-router';
 import { useAuthStore } from '../stores/auth';
+import { useUrlStore } from '../stores/url';
 
 
 const router = createRouter({
   history: createWebHashHistory(),
   routes: [
-    { path: '/login', component: () => import('../components/Login.vue') },
+    {
+      path: '/login',
+      name: '登录',
+      component: () => import('../components/Login.vue')
+    },
     {
       path: '/',
       component: () => import('../layout/AppLayout.vue'),
@@ -18,28 +23,38 @@ const router = createRouter({
         {
           path: 'users',
           component: () => import('../components/user/User.vue'),
+          meta: {
+            title: '用户列表',
+          },
           children: [
             {
               path: '',
-              component: () => import('../components/subcomponents/MyUsers.vue')
+              component: () => import('../components/subcomponents/MyUsers.vue'),
+
             },
             {
               path: ':id',
               name: 'details',
-              component: () => import('../components/user/MyUserDetail.vue'), props: true
-            }
-          ]
-
+              component: () => import('../components/user/MyUserDetail.vue'), props: true,
+              meta: {
+                title: '用户详情',
+              }
+            },
+          ],
         },
         {
           path: 'goods',
-          component: () => import('../components/subcomponents/MyGoods.vue')
+          component: () => import('../components/subcomponents/MyGoods.vue'),
+          meta: {
+            title: '商品列表',
+          }
         },
       ]
     },
 
   ]
 })
+
 
 
 export default router
@@ -54,5 +69,8 @@ router.beforeEach((to, from, next) => {
   if (!isLogin) {
     return next('/login')
   }
+
+  console.log("to: ", [to.path, to.fullPath, to.name])
+  console.log("from: ", [from.path, from.fullPath, from.name])
   next()
 })

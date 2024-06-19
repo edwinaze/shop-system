@@ -46,8 +46,11 @@
 <script setup>
 import { ref, onMounted } from "vue";
 import { useRouter, useRoute } from "vue-router";
+import { useUrlStore } from "../../stores/url";
 import axios from "axios";
 
+
+const { popRoute } = useUrlStore();
 const router = useRouter();
 const route = useRoute();
 const user = ref({});
@@ -66,6 +69,7 @@ const fetchUserDetail = async (id) => {
 };
 
 const goBack = () => {
+	popRoute();
 	router.back();
 };
 
@@ -85,6 +89,7 @@ onMounted(() => {
 	height: 100px;
 	border-radius: 50%;
 }
+
 button {
 	background-color: #409eff;
 	color: #fff;
