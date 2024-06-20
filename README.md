@@ -2,6 +2,8 @@
 
 本项目基于 Vue3 和 Vite 构建，采用 Pinia 进行全局状态管理，使用 Mock.js 模拟后端 API。项目的 UI 框架为 PrimeVue v4，路由管理由 vue-router 负责，axios 用于处理 HTTP 请求。
 
+大部分设计均参考 PrimeVue 模板 [sakai](https://sakai.primevue.org/)。
+
 # 部署指南
 
 本项目在开发过程中使用 bun.js 作为运行时环境，但也支持使用 Node.js 运行。在两种环境下的测试均表现正常。
@@ -59,3 +61,7 @@ npm run dev
 -   删除功能：用户可以删除选中的商品。
 
 ![goodsList](./preview/goodsList.jpg)
+
+# 后记
+
+喜欢我一副高高在上尖酸刻薄的外聘“老师”吗？这学期做过最差的决定就是花了 3 天时间写一个评价标准是谁先排上队早点检查分就高的 Vue 大作业，~~他妈的~~。
