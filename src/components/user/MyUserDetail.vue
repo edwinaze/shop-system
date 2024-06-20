@@ -76,8 +76,7 @@
 
 <script setup>
 import { ref, onMounted } from "vue";
-import { useRouter, useRoute } from "vue-router";
-import { useUrlStore } from "../../stores/url";
+import { useRoute } from "vue-router";
 import axios from "axios";
 
 
@@ -87,8 +86,7 @@ onMounted(() => {
 	console.log("用户详情", user);
 });
 
-const { popRoute } = useUrlStore();
-const router = useRouter();
+
 const route = useRoute();
 const user = ref({});
 
@@ -104,12 +102,6 @@ const fetchUserDetail = async (id) => {
 		console.error("获取用户详情时出错", error);
 	}
 };
-
-const goBack = () => {
-	popRoute();
-	router.back();
-};
-
 
 </script>
 

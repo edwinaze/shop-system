@@ -62,7 +62,6 @@
 </template>
 
 <script setup>
-import Checkbox from 'primevue/checkbox';
 import { ref } from 'vue';
 
 const overlook = ref({

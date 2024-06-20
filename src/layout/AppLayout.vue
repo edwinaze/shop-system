@@ -18,7 +18,6 @@
 import { ref, computed, watch } from "vue";
 import AppNavBar from "./AppNavBar.vue";
 import AppSideBar from "./AppSideBar.vue";
-import AppFooter from "./AppFooter.vue";
 import { useLayout } from "./layout";
 
 const { layoutConfig, layoutState, isSidebarActive } = useLayout();

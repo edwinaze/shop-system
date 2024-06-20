@@ -2,7 +2,7 @@
 	<div
 		class="surface-ground flex align-items-center justify-content-center min-h-screen min-w-screen overflow-hidden">
 		<div class="flex flex-column align-items-center justify-content-center relative">
-			<img src="../assets/logo/avatar_default.png" alt="Sakai logo" class="w-6rem flex-shrink-0 absolute"
+			<img src="../assets/logo/avatar.png" alt="Sakai logo" class="w-8rem flex-shrink-0 absolute"
 				style="top: -60px" />
 			<div style="
 					border-radius: 56px;
@@ -60,8 +60,8 @@ async function onLogin() {
 			password: password.value,
 		});
 		if (response.data.code === 200) {
-			console.log("login success")
-			console.log(response.data.data)
+			// console.log("login success")
+			// console.log(response.data.data)
 			const nickname = response.data.data.userNickname;
 			const role = response.data.data.userRole;
 			setAuthStore(username.value, password.value, nickname, role);

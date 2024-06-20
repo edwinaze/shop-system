@@ -1,7 +1,5 @@
 import { useRoute, createRouter, createWebHashHistory } from 'vue-router';
 import { useAuthStore } from '../stores/auth';
-import { useUrlStore } from '../stores/url';
-
 
 const router = createRouter({
   history: createWebHashHistory(),
@@ -29,7 +27,7 @@ const router = createRouter({
           children: [
             {
               path: '',
-              component: () => import('../components/subcomponents/MyUsers.vue'),
+              component: () => import('../components/user/MyUsers.vue'),
 
             },
             {
@@ -44,7 +42,7 @@ const router = createRouter({
         },
         {
           path: 'goods',
-          component: () => import('../components/subcomponents/MyGoods.vue'),
+          component: () => import('../components/goods/MyGoods.vue'),
           meta: {
             title: '商品列表',
           }

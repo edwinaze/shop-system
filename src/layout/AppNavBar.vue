@@ -8,7 +8,7 @@ import { useConfirm } from 'primevue/useconfirm';
 const confirm = useConfirm();
 
 
-const { layoutConfig, onMenuToggle } = useLayout();
+const { onMenuToggle } = useLayout();
 const { removeAuthStore, nickname } = useAuthStore();
 
 const homes = ref({
@@ -16,42 +16,6 @@ const homes = ref({
 });
 
 const items = ref([]);
-
-
-
-
-
-// urlStore.$subscribe(() => {
-//     const routeList = urlStore.getRouteList(); // 是 Proxy 对象
-//     const routeName = urlStore.getRouteNameList();
-//     console.log("NavBar-routeList: ", routeList, "NavBar-routeName: ", routeName);
-
-//     let breadcrumb = [];
-//     for (let i = 0; i < routeList.length; i++) {
-//         breadcrumb.push({
-//             label: routeName[i],
-//             route: routeList[i]
-//         });
-//     }
-//     console.log(breadcrumb);
-//     items.value = breadcrumb;
-// });
-
-
-
-// watch(routeList, () => {
-//     items = () => {
-//         let breadcrumb = [];
-//         for (let i = 0; i < routeList.value.length; i++) {
-//             breadcrumb.push({
-//                 label: routeName.value[i],
-//                 to: routeList.value[i]
-//             });
-//         }
-//         console.log(breadcrumb);
-//         return breadcrumb;
-//     }
-// });
 
 const outsideClickListener = ref(null);
 const topbarMenuActive = ref(false);
@@ -82,7 +46,7 @@ onBeforeUnmount(() => {
 watch(route, () => {
 
     const routeMatched = route.matched;
-    console.log("NavBar-routeMatched: ", routeMatched);
+    // console.log("NavBar-routeMatched: ", routeMatched);
     let breadcrumb = [];
     for (let i = 0; i < routeMatched.length; i++) {
         if (routeMatched[i].meta.title) {
@@ -97,20 +61,6 @@ watch(route, () => {
 });
 
 
-const logoUrl = computed(() => {
-    return `/layout/images/${layoutConfig.darkTheme.value ? 'logo-white' : 'logo-dark'}.svg`;
-});
-
-const onSettingsClick = () => {
-    topbarMenuActive.value = false;
-    router.push('/documentation');
-};
-const topbarMenuClasses = computed(() => {
-    return {
-        'layout-topbar-menu-mobile-active': topbarMenuActive.value
-    };
-});
-
 const bindOutsideClickListener = () => {
     if (!outsideClickListener.value) {
         outsideClickListener.value = (event) => {
@@ -121,6 +71,7 @@ const bindOutsideClickListener = () => {
         document.addEventListener('click', outsideClickListener.value);
     }
 };
+
 const unbindOutsideClickListener = () => {
     if (outsideClickListener.value) {
         document.removeEventListener('click', outsideClickListener);
@@ -167,11 +118,6 @@ const logoutConfirm = () => {
         },
     });
 };
-
-
-const test = () => {
-    console.log(route.matched);
-}
 
 
 </script>

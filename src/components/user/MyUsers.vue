@@ -29,8 +29,6 @@ import { useUrlStore } from "../../stores/url";
 
 const router = useRouter();
 const { pushRoute } = useUrlStore();
-const inputGroupValue = ref(false);
-
 
 
 const routeToDetails = (id, name) => {
@@ -51,3 +49,9 @@ const userlist = ref([]);
 
 localStorage.setItem("userlist", JSON.stringify(userlist));
 </script>
+
+<style>
+.p-datatable-paginator-bottom {
+	border-color: #e2e8f0 !important;
+}
+</style>

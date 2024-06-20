@@ -73,7 +73,6 @@ const list = ref([]);
 
 const totalPrice = ref(0);
 
-// const checkAll = ref(false);
 
 const selectedProduct = ref();
 
@@ -90,10 +89,6 @@ onMounted(() => {
 			console.log(error);
 		});
 });
-
-// watch(checkAll, () => {
-// 	updateStatus();
-// });
 
 
 const getTotalPrice = () => {
@@ -127,14 +122,6 @@ const onInputConfig = (row) => {
 	}
 	row.tags.push(val);
 };
-
-// const updateStatus = () => {
-// 	console.log("updateStatus:" + checkAll.value);
-// 	list.value.forEach((item) => {
-// 		item.checkState = checkAll.value;
-// 	});
-// 	console.log(list.value);
-// };
 
 
 </script>
